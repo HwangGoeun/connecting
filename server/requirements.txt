@@ -3,3 +3,4 @@ uvicorn
 sentence-transformers
 umap-learn
 scikit-learn
+pydantic
