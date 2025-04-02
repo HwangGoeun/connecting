@@ -10,6 +10,10 @@ import numpy as np
 
 app = FastAPI()
 
+@app.get("/")
+def root():
+    return {"message": "Server is running!"}
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
