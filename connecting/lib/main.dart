@@ -143,7 +143,7 @@ class _WordVisualizerState extends State<WordVisualizer> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:8000/vectorize'),
+        Uri.parse('https://connecting-bs40.onrender.com'),
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
         body: utf8.encode(json.encode({'words': inputWords})),
       );
