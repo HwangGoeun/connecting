@@ -199,7 +199,7 @@ class _WordVisualizerState extends State<WordVisualizer> {
                 child: TextField(
                   controller: _controller,
                   decoration: const InputDecoration(
-                    labelText: '단어 입력',
+                    labelText: 'Enter Word',
                     border: OutlineInputBorder(),
                   ),
                   onSubmitted: (_) => addWord(),
@@ -208,7 +208,7 @@ class _WordVisualizerState extends State<WordVisualizer> {
               const SizedBox(width: 10),
               ElevatedButton(
                 onPressed: isLoading ? null : addWord,
-                child: const Text("추가"),
+                child: const Text("ADD"),
               ),
             ],
           ),
