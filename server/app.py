@@ -22,7 +22,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-model = SentenceTransformer("paraphrase-MiniLM-L6-v2")
+model = SentenceTransformer("sentence-transformers/LaBSE")
 
 class WordList(BaseModel):
     words: list[str]
