@@ -18,7 +18,8 @@ class WordVisualizerApp extends StatelessWidget {
       theme: ThemeData.dark(),
       home: Scaffold(
         backgroundColor: Colors.black,
-        appBar: AppBar(title: const Text('단어 별자리')),
+        appBar:
+            AppBar(title: const Text('Connecting: A Semantic Map of Words')),
         body: const WordVisualizer(),
       ),
     );
