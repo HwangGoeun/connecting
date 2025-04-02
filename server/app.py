@@ -7,6 +7,7 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 import umap
 import numpy as np
+import os
 
 app = FastAPI()
 
@@ -58,3 +59,8 @@ def vectorize(req: WordList):
         content={"points": points, "connections": connections},
         media_type="application/json; charset=utf-8"
     )
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 10000))
+    uvicorn.run("app:app", host="0.0.0.0", port=port)
