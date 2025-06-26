@@ -52,11 +52,64 @@ This idea eventually became the foundation of **Connecting**, a project I built 
 
 ```bash
 cd server
+
+# (1) Create virtual environment
+python3 -m venv venv
+
+# (2) Activate it
+# macOS / Linux:
+source venv/bin/activate
+# Windows (CMD):
+venv\Scripts\activate
+
+# (3) Install dependencies
 pip install -r requirements.txt
+
+# (4) Run the server
 uvicorn app:app --host 0.0.0.0 --port 10000 --reload
 ```
 
 > Server will run at `http://localhost:10000`
+
+> If you see errors from `numba`, make sure your `.env` file contains `NUMBA_THREADING_LAYER=tbb` or `NUMBA_DISABLE_JIT=1`.
+
+---
+
+### 🧾 Environment Variables
+
+In the `server/` directory, create a `.env` file to configure the backend runtime. Here's a sample:
+
+```env
+PORT=10000
+NUMBA_THREADING_LAYER=tbb
+```
+
+> Alternatively, use `NUMBA_DISABLE_JIT=1` if TBB is unavailable.
+
+---
+
+### 🛠 One-Command Setup (optional)
+
+If you're on macOS/Linux, you can use the included script:
+
+```bash
+cd server
+bash setup.sh
+```
+
+For Windows:
+
+```cmd
+cd server
+setup.bat
+```
+
+These scripts:
+- Create a virtual environment
+- Install all dependencies
+- Launch the server
+
+---
 
 ### 🧪 Example API Request
 
