@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -8,6 +11,10 @@ from sklearn.metrics.pairwise import cosine_similarity
 import umap
 import numpy as np
 import os
+os.environ["NUMBA_DISABLE_JIT"] = "1"
+
+from numba import set_num_threads
+set_num_threads(1)
 
 app = FastAPI()
 
