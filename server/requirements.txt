@@ -3,6 +3,7 @@ uvicorn
 pydantic
 sentence-transformers
 scikit-learn
-umap-learn
-numpy<=2.1
+umap-learn==0.5.5
+numba==0.58.1
+numpy<2.0
 python-dotenv

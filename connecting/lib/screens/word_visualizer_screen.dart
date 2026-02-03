@@ -20,6 +20,27 @@ class _WordVisualizerState extends State<WordVisualizer> {
   List<WordConnection> connections = [];
   final TextEditingController _controller = TextEditingController();
   bool isLoading = false;
+  bool isServerWaking = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _wakeUpServer();
+  }
+
+  Future<void> _wakeUpServer() async {
+    try {
+      await http.get(Uri.parse(apiBaseUrl)).timeout(
+        const Duration(seconds: 60),
+      );
+    } catch (e) {
+      print('서버 깨우기 실패: $e');
+    } finally {
+      if (mounted) {
+        setState(() => isServerWaking = false);
+      }
+    }
+  }
 
   Future<void> fetchWordPoints() async {
     if (inputWords.isEmpty) return;
@@ -169,6 +190,27 @@ class _WordVisualizerState extends State<WordVisualizer> {
                   },
                 ),
               if (isLoading) const Center(child: CircularProgressIndicator()),
+              if (isServerWaking)
+                Center(
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[900],
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        CircularProgressIndicator(),
+                        SizedBox(height: 12),
+                        Text(
+                          'Waking up server...',
+                          style: TextStyle(color: Colors.white70),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
             ],
           ),
         ),

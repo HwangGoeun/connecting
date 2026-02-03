@@ -1,3 +1,6 @@
+import os
+os.environ["NUMBA_DISABLE_JIT"] = "1"
+
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -10,11 +13,6 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 import umap
 import numpy as np
-import os
-os.environ["NUMBA_DISABLE_JIT"] = "1"
-
-from numba import set_num_threads
-set_num_threads(1)
 
 app = FastAPI()
 
@@ -41,7 +39,8 @@ def vectorize(req: WordList):
         return JSONResponse(content={"points": [], "connections": []})
 
     embeddings = model.encode(words)
-    reducer = umap.UMAP(n_components=2, random_state=42)
+    n_neighbors = min(15, len(words) - 1)
+    reducer = umap.UMAP(n_components=2, n_neighbors=n_neighbors, random_state=42)
     reduced = reducer.fit_transform(embeddings)
 
     sim_matrix = cosine_similarity(embeddings)
@@ -69,5 +68,5 @@ def vectorize(req: WordList):
 
 if __name__ == "__main__":
     import uvicorn
-    port = int(os.environ.get("PORT", 10000))
+    port = int(os.environ.get("PORT", 7860))
     uvicorn.run("app:app", host="0.0.0.0", port=port)
